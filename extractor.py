@@ -27,13 +27,11 @@ OUTPUT_JSON = Path("latest.json")
 OUTPUT_CSV = Path("latest.csv")
 OUTPUT_METADATA = Path("metadata.json")
 
-TIMEOUT_MS = 120000
+TIMEOUT_MS = 180000
 
-# Espera entre navegaciones para no sobrecargar COMPR.AR
-PAGE_WAIT_MS = 800
-DETAIL_WAIT_MS = 300
+PAGE_WAIT_MS = 1000
+DETAIL_WAIT_MS = 500
 
-# Limite del texto capturado en cada detalle
 MAX_DETAIL_TEXT = 10000
 
 # Permite leer celdas CSV extensas
@@ -163,21 +161,18 @@ async def extract_process_rows(page):
         if not numero_proceso:
             continue
 
+        lower_numero = (
+            numero_proceso.lower()
+        )
+
         if (
             "número de proceso"
-            in numero_proceso.lower()
-        ):
-            continue
-
-        if (
+            in lower_numero
+            or
             "numero de proceso"
-            in numero_proceso.lower()
+            in lower_numero
         ):
             continue
-
-        # ----------------------------------------------------
-        # LINK / REFERENCIA AL DETALLE
-        # ----------------------------------------------------
 
         process_url = ""
         process_href = ""
@@ -248,7 +243,7 @@ async def extract_process_rows(page):
 
 
 # ============================================================
-# DETECTAR CONTROL DE PAGINACION ASP.NET
+# DETECTAR PAGINADOR ASP.NET
 # ============================================================
 
 async def find_pager_target(page):
@@ -286,7 +281,7 @@ async def find_pager_target(page):
 
 
 # ============================================================
-# IR A UNA PAGINA ESPECIFICA
+# IR A UNA PAGINA
 # ============================================================
 
 async def go_to_page_number(
@@ -317,11 +312,10 @@ async def go_to_page_number(
         f"{page_number}"
     )
 
-    # Ejecutamos el mismo postback que utiliza
-    # internamente el paginador ASP.NET.
     await page.evaluate(
         """
         ([target, argument]) => {
+
             if (
                 typeof window.__doPostBack
                 !== 'function'
@@ -343,49 +337,42 @@ async def go_to_page_number(
         ],
     )
 
-    # Esperamos a que el postback termine.
-    try:
-
-        await page.wait_for_load_state(
-            "domcontentloaded",
-            timeout=30000,
-        )
-
-    except PlaywrightTimeoutError:
-
-        pass
-
     await page.wait_for_timeout(
         PAGE_WAIT_MS
     )
 
-    new_records = (
-        await extract_process_rows(
-            page
+    # Esperamos a que la primera fila cambie
+    # respecto de la página anterior.
+    for _ in range(30):
+
+        new_records = (
+            await extract_process_rows(
+                page
+            )
         )
+
+        if new_records:
+
+            new_first = (
+                new_records[0]
+                ["numero_proceso"]
+            )
+
+            if (
+                not previous_first
+                or new_first
+                != previous_first
+            ):
+                return
+
+        await page.wait_for_timeout(
+            500
+        )
+
+    raise RuntimeError(
+        f"La paginación no avanzó "
+        f"a la página {page_number}."
     )
-
-    if not new_records:
-
-        raise RuntimeError(
-            f"La página {page_number} "
-            "no devolvió procesos."
-        )
-
-    new_first = (
-        new_records[0]
-        ["numero_proceso"]
-    )
-
-    if (
-        previous_first
-        and new_first == previous_first
-    ):
-
-        raise RuntimeError(
-            f"La paginación no avanzó "
-            f"a la página {page_number}."
-        )
 
 
 # ============================================================
@@ -498,10 +485,6 @@ async def extract_all_processes(page):
         )
 
         pages_processed += 1
-
-    # ========================================================
-    # DEDUPLICACION
-    # ========================================================
 
     unique = {}
 
@@ -624,9 +607,7 @@ async def enrich_process_details(
 
             await detail_page.goto(
                 process_url,
-                wait_until=(
-                    "domcontentloaded"
-                ),
+                wait_until="commit",
                 timeout=TIMEOUT_MS,
             )
 
@@ -637,7 +618,9 @@ async def enrich_process_details(
             body_text = await (
                 detail_page
                 .locator("body")
-                .inner_text()
+                .inner_text(
+                    timeout=30000
+                )
             )
 
             body_text = (
@@ -986,7 +969,146 @@ def write_metadata(
 
 
 # ============================================================
-# MAIN ASYNC
+# APERTURA ROBUSTA DE COMPR.AR
+# ============================================================
+
+async def robust_open_comprar(page):
+    page.set_default_timeout(
+        120000
+    )
+
+    page.set_default_navigation_timeout(
+        180000
+    )
+
+    page_loaded = False
+    last_error = None
+
+    for attempt in range(
+        1,
+        4,
+    ):
+
+        print(
+            f"Intento {attempt}/3 "
+            "de apertura de COMPR.AR..."
+        )
+
+        try:
+
+            await page.goto(
+                SOURCE_URL,
+                wait_until="commit",
+                timeout=180000,
+            )
+
+            await page.wait_for_timeout(
+                5000
+            )
+
+        except PlaywrightTimeoutError as exc:
+
+            last_error = exc
+
+            print(
+                "Timeout de navegación. "
+                "Verificando contenido..."
+            )
+
+        except Exception as exc:
+
+            last_error = exc
+
+            print(
+                "Error de navegación:",
+                str(exc),
+            )
+
+        try:
+
+            body_locator = (
+                page.locator("body")
+            )
+
+            await body_locator.wait_for(
+                state="attached",
+                timeout=30000,
+            )
+
+            body_text = await (
+                body_locator
+                .inner_text(
+                    timeout=30000
+                )
+            )
+
+            body_text = clean_text(
+                body_text
+            )
+
+            if (
+                "Licitaciones de apertura próxima"
+                in body_text
+            ):
+
+                print(
+                    "COMPR.AR cargado correctamente."
+                )
+
+                page_loaded = True
+
+                break
+
+            print(
+                "La página respondió, "
+                "pero todavía no muestra "
+                "el listado esperado."
+            )
+
+        except Exception as exc:
+
+            last_error = exc
+
+            print(
+                "No fue posible leer "
+                "el contenido:",
+                str(exc),
+            )
+
+        if attempt < 3:
+
+            print(
+                "Esperando 10 segundos "
+                "antes de reintentar..."
+            )
+
+            await page.wait_for_timeout(
+                10000
+            )
+
+    if not page_loaded:
+
+        print("")
+        print(
+            "ERROR: no se pudo cargar "
+            "COMPR.AR después de 3 intentos."
+        )
+
+        if last_error:
+
+            print(
+                "Último error:",
+                str(last_error),
+            )
+
+        raise RuntimeError(
+            "No se pudo acceder "
+            "a Licitaciones de apertura próxima."
+        )
+
+
+# ============================================================
+# MAIN
 # ============================================================
 
 async def main():
@@ -1034,31 +1156,13 @@ async def main():
             "Abriendo COMPR.AR..."
         )
 
-        await page.goto(
-            SOURCE_URL,
-            wait_until="domcontentloaded",
-            timeout=TIMEOUT_MS,
-        )
+        # ====================================================
+        # APERTURA ROBUSTA
+        # ====================================================
 
-        await page.wait_for_timeout(
-            3000
-        )
-
-        body_text = await (
+        await robust_open_comprar(
             page
-            .locator("body")
-            .inner_text()
         )
-
-        if (
-            "Licitaciones de apertura próxima"
-            not in body_text
-        ):
-
-            raise RuntimeError(
-                "No se encontró la pantalla "
-                "de Licitaciones de apertura próxima."
-            )
 
         # ====================================================
         # LISTADO
@@ -1083,7 +1187,7 @@ async def main():
         )
 
         # ====================================================
-        # VALIDACION DEL LISTADO
+        # VALIDACION TEMPRANA
         # ====================================================
 
         if (
@@ -1141,7 +1245,7 @@ async def main():
     )
 
     # ========================================================
-    # RESULTADO
+    # RESULTADO FINAL
     # ========================================================
 
     print("")
@@ -1232,6 +1336,7 @@ async def main():
 # ============================================================
 
 if __name__ == "__main__":
+
     asyncio.run(
         main()
     )
