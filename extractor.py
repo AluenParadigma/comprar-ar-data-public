@@ -1,3 +1,4 @@
+import asyncio
 import csv
 import json
 import math
@@ -7,8 +8,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urljoin
 
-from playwright.sync_api import (
-    sync_playwright,
+from playwright.async_api import (
+    async_playwright,
     TimeoutError as PlaywrightTimeoutError,
 )
 
@@ -28,12 +29,15 @@ OUTPUT_METADATA = Path("metadata.json")
 
 TIMEOUT_MS = 120000
 
-# Espera breve entre paginas de detalle.
+# Espera entre navegaciones para no sobrecargar COMPR.AR
+PAGE_WAIT_MS = 800
 DETAIL_WAIT_MS = 300
 
-# Limitamos el texto del detalle para que latest.json
-# no crezca indefinidamente.
-MAX_DETAIL_TEXT = 8000
+# Limite del texto capturado en cada detalle
+MAX_DETAIL_TEXT = 10000
+
+# Permite leer celdas CSV extensas
+csv.field_size_limit(sys.maxsize)
 
 
 # ============================================================
@@ -45,7 +49,6 @@ def clean_text(value):
         return ""
 
     value = str(value)
-
     value = value.replace("\xa0", " ")
 
     value = re.sub(
@@ -73,11 +76,11 @@ def normalize_multiline_text(value):
 
 
 # ============================================================
-# TOTAL INFORMADO POR COMPR.AR
+# TOTAL DEL PORTAL
 # ============================================================
 
-def extract_portal_total(page):
-    body_text = page.locator(
+async def extract_portal_total(page):
+    body_text = await page.locator(
         "body"
     ).inner_text()
 
@@ -121,47 +124,38 @@ def extract_portal_total(page):
 
 
 # ============================================================
-# DETECTAR FILAS DE PROCESOS
+# EXTRAER FILAS DE UNA PAGINA
 # ============================================================
 
-def extract_process_rows(page):
-    """
-    Busca filas que tengan las 7 columnas que muestra
-    la pantalla de Licitaciones de apertura próxima.
-
-    Columnas:
-    1. Número de Proceso
-    2. Nombre descriptivo
-    3. Tipo
-    4. Fecha de Apertura
-    5. Estado
-    6. Unidad Ejecutora
-    7. Servicio Administrativo Financiero
-    """
-
+async def extract_process_rows(page):
     rows = page.locator("tr")
+
+    row_count = await rows.count()
 
     records = []
 
-    for index in range(rows.count()):
+    for index in range(row_count):
 
         row = rows.nth(index)
-
         cells = row.locator("td")
 
-        if cells.count() < 7:
+        cell_count = await cells.count()
+
+        if cell_count < 7:
             continue
 
         values = []
 
         for cell_index in range(7):
 
+            text = await (
+                cells
+                .nth(cell_index)
+                .inner_text()
+            )
+
             values.append(
-                clean_text(
-                    cells
-                    .nth(cell_index)
-                    .inner_text()
-                )
+                clean_text(text)
             )
 
         numero_proceso = values[0]
@@ -169,36 +163,52 @@ def extract_process_rows(page):
         if not numero_proceso:
             continue
 
-        if "número de proceso" in numero_proceso.lower():
+        if (
+            "número de proceso"
+            in numero_proceso.lower()
+        ):
+            continue
+
+        if (
+            "numero de proceso"
+            in numero_proceso.lower()
+        ):
             continue
 
         # ----------------------------------------------------
-        # LINK AL DETALLE
+        # LINK / REFERENCIA AL DETALLE
         # ----------------------------------------------------
 
         process_url = ""
+        process_href = ""
 
         first_cell = cells.nth(0)
 
         anchors = first_cell.locator("a")
 
-        if anchors.count() > 0:
+        if await anchors.count() > 0:
 
-            href = anchors.first.get_attribute(
-                "href"
+            href = await (
+                anchors
+                .first
+                .get_attribute("href")
             )
 
             if href:
 
-                href = href.strip()
+                process_href = (
+                    href.strip()
+                )
 
-                if not href.lower().startswith(
-                    "javascript:"
+                if not (
+                    process_href
+                    .lower()
+                    .startswith("javascript:")
                 ):
 
                     process_url = urljoin(
                         page.url,
-                        href,
+                        process_href,
                     )
 
         record = {
@@ -225,6 +235,9 @@ def extract_process_rows(page):
 
             "process_url":
                 process_url,
+
+            "process_href":
+                process_href,
         }
 
         records.append(
@@ -235,36 +248,23 @@ def extract_process_rows(page):
 
 
 # ============================================================
-# ASP.NET PAGINATION
+# DETECTAR CONTROL DE PAGINACION ASP.NET
 # ============================================================
 
-def find_pager_target(page):
-    """
-    COMPR.AR utiliza ASP.NET.
-
-    Buscamos el control que hace los postbacks de paginación,
-    por ejemplo:
-
-    javascript:__doPostBack(
-        'ctl00$...$GridView',
-        'Page$2'
-    )
-
-    Con ese target podemos solicitar directamente Page$1,
-    Page$2, Page$3, etc., aunque el número no esté visible
-    en el paginador.
-    """
-
+async def find_pager_target(page):
     anchors = page.locator("a")
 
-    for index in range(anchors.count()):
+    anchor_count = await anchors.count()
 
-        href = (
+    for index in range(anchor_count):
+
+        href = await (
             anchors
             .nth(index)
             .get_attribute("href")
-            or ""
         )
+
+        href = href or ""
 
         match = re.search(
             (
@@ -285,71 +285,87 @@ def find_pager_target(page):
     return None
 
 
-def go_to_page_number(
+# ============================================================
+# IR A UNA PAGINA ESPECIFICA
+# ============================================================
+
+async def go_to_page_number(
     page,
     pager_target,
     page_number,
 ):
-    """
-    Navega directamente a una página del listado
-    utilizando el mecanismo ASP.NET.
-    """
-
     if page_number == 1:
         return
 
-    previous_text = ""
-
-    previous_rows = extract_process_rows(
-        page
+    before_records = (
+        await extract_process_rows(
+            page
+        )
     )
 
-    if previous_rows:
+    previous_first = ""
 
-        previous_text = (
-            previous_rows[0]
+    if before_records:
+
+        previous_first = (
+            before_records[0]
             ["numero_proceso"]
         )
 
+    print(
+        f"Abriendo página "
+        f"{page_number}"
+    )
+
+    # Ejecutamos el mismo postback que utiliza
+    # internamente el paginador ASP.NET.
+    await page.evaluate(
+        """
+        ([target, argument]) => {
+            if (
+                typeof window.__doPostBack
+                !== 'function'
+            ) {
+                throw new Error(
+                    '__doPostBack no está disponible'
+                );
+            }
+
+            window.__doPostBack(
+                target,
+                argument
+            );
+        }
+        """,
+        [
+            pager_target,
+            f"Page${page_number}",
+        ],
+    )
+
+    # Esperamos a que el postback termine.
     try:
 
-        with page.expect_navigation(
-            wait_until="domcontentloaded",
-            timeout=TIMEOUT_MS,
-        ):
-
-            page.evaluate(
-                """
-                ([target, argument]) => {
-                    window.__doPostBack(
-                        target,
-                        argument
-                    );
-                }
-                """,
-                [
-                    pager_target,
-                    f"Page${page_number}",
-                ],
-            )
+        await page.wait_for_load_state(
+            "domcontentloaded",
+            timeout=30000,
+        )
 
     except PlaywrightTimeoutError:
 
-        # Algunos postbacks pueden resolverse sin
-        # navegación completa.
-        page.wait_for_timeout(
-            1500
+        pass
+
+    await page.wait_for_timeout(
+        PAGE_WAIT_MS
+    )
+
+    new_records = (
+        await extract_process_rows(
+            page
         )
-
-    page.wait_for_timeout(
-        700
     )
 
-    new_rows = extract_process_rows(
-        page
-    )
-
-    if not new_rows:
+    if not new_records:
 
         raise RuntimeError(
             f"La página {page_number} "
@@ -357,13 +373,13 @@ def go_to_page_number(
         )
 
     new_first = (
-        new_rows[0]
+        new_records[0]
         ["numero_proceso"]
     )
 
     if (
-        previous_text
-        and new_first == previous_text
+        previous_first
+        and new_first == previous_first
     ):
 
         raise RuntimeError(
@@ -373,21 +389,24 @@ def go_to_page_number(
 
 
 # ============================================================
-# EXTRAER TODAS LAS PAGINAS
+# EXTRAER TODO EL LISTADO
 # ============================================================
 
-def extract_all_processes(page):
-    portal_total = extract_portal_total(
-        page
+async def extract_all_processes(page):
+    portal_total = (
+        await extract_portal_total(
+            page
+        )
     )
 
+    print("")
     print(
         "Total informado por COMPR.AR:",
         portal_total,
     )
 
     first_page_records = (
-        extract_process_rows(
+        await extract_process_rows(
             page
         )
     )
@@ -409,7 +428,8 @@ def extract_all_processes(page):
     )
 
     total_pages = math.ceil(
-        portal_total / page_size
+        portal_total
+        / page_size
     )
 
     print(
@@ -417,8 +437,15 @@ def extract_all_processes(page):
         total_pages,
     )
 
-    pager_target = find_pager_target(
-        page
+    pager_target = (
+        await find_pager_target(
+            page
+        )
+    )
+
+    print(
+        "Control paginador:",
+        pager_target,
     )
 
     if (
@@ -442,20 +469,21 @@ def extract_all_processes(page):
 
         if page_number > 1:
 
+            print("")
             print(
                 f"Abriendo página "
                 f"{page_number}/"
                 f"{total_pages}"
             )
 
-            go_to_page_number(
+            await go_to_page_number(
                 page,
                 pager_target,
                 page_number,
             )
 
         records = (
-            extract_process_rows(
+            await extract_process_rows(
                 page
             )
         )
@@ -471,20 +499,22 @@ def extract_all_processes(page):
 
         pages_processed += 1
 
-    # --------------------------------------------------------
+    # ========================================================
     # DEDUPLICACION
-    # --------------------------------------------------------
+    # ========================================================
 
     unique = {}
 
     for record in all_records:
 
-        numero = (
+        numero = clean_text(
             record[
                 "numero_proceso"
             ]
-            .strip()
         )
+
+        if not numero:
+            continue
 
         unique[numero] = record
 
@@ -494,7 +524,19 @@ def extract_all_processes(page):
 
     print("")
     print(
-        "Registros obtenidos:",
+        "===================================="
+    )
+
+    print(
+        "RESULTADO LISTADO"
+    )
+
+    print(
+        "===================================="
+    )
+
+    print(
+        "Registros crudos:",
         len(all_records),
     )
 
@@ -525,29 +567,20 @@ def extract_all_processes(page):
 
 
 # ============================================================
-# DETALLE DE CADA PROCESO
+# ENRIQUECIMIENTO DE DETALLES
 # ============================================================
 
-def enrich_process_details(
-    browser_context,
+async def enrich_process_details(
+    context,
     records,
 ):
-    """
-    Visita el detalle de cada proceso cuando el listado
-    proporciona un link directo.
-
-    Esto mejora la cobertura semántica porque no dependemos
-    exclusivamente del nombre descriptivo del proceso.
-    """
-
-    detail_page = (
-        browser_context
-        .new_page()
+    detail_page = await (
+        context.new_page()
     )
 
     detail_success = 0
     detail_failed = 0
-    no_detail_url = 0
+    no_direct_url = 0
 
     total = len(records)
 
@@ -556,12 +589,7 @@ def enrich_process_details(
         start=1,
     ):
 
-        print(
-            f"Detalle {index}/{total}: "
-            f"{record['numero_proceso']}"
-        )
-
-        process_url = (
+        process_url = clean_text(
             record.get(
                 "process_url",
                 "",
@@ -578,7 +606,7 @@ def enrich_process_details(
 
         if not process_url:
 
-            no_detail_url += 1
+            no_direct_url += 1
 
             record[
                 "detail_status"
@@ -586,31 +614,39 @@ def enrich_process_details(
 
             continue
 
+        print(
+            f"Detalle {index}/"
+            f"{total}: "
+            f"{record['numero_proceso']}"
+        )
+
         try:
 
-            detail_page.goto(
+            await detail_page.goto(
                 process_url,
-                wait_until="domcontentloaded",
+                wait_until=(
+                    "domcontentloaded"
+                ),
                 timeout=TIMEOUT_MS,
             )
 
-            detail_page.wait_for_timeout(
+            await detail_page.wait_for_timeout(
                 DETAIL_WAIT_MS
             )
 
-            text = (
+            body_text = await (
                 detail_page
                 .locator("body")
                 .inner_text()
             )
 
-            text = (
+            body_text = (
                 normalize_multiline_text(
-                    text
+                    body_text
                 )
             )
 
-            if not text:
+            if not body_text:
 
                 raise RuntimeError(
                     "Detalle vacío"
@@ -618,7 +654,7 @@ def enrich_process_details(
 
             record[
                 "detail_text"
-            ] = text[
+            ] = body_text[
                 :MAX_DETAIL_TEXT
             ]
 
@@ -642,7 +678,7 @@ def enrich_process_details(
                 exc
             )[:500]
 
-    detail_page.close()
+    await detail_page.close()
 
     return {
         "detail_expected":
@@ -655,19 +691,20 @@ def enrich_process_details(
             detail_failed,
 
         "detail_no_direct_url":
-            no_detail_url,
+            no_direct_url,
     }
 
 
 # ============================================================
-# SALIDA JSON
+# JSON
 # ============================================================
 
 def write_json(records):
     payload = {
-        "generated_at": datetime.now(
-            timezone.utc
-        ).isoformat(),
+        "generated_at":
+            datetime.now(
+                timezone.utc
+            ).isoformat(),
 
         "source":
             "COMPR.AR - Compras Públicas Argentina",
@@ -696,7 +733,7 @@ def write_json(records):
 
 
 # ============================================================
-# SALIDA CSV
+# CSV
 # ============================================================
 
 def write_csv(records):
@@ -710,7 +747,6 @@ def write_csv(records):
         return
 
     columns = []
-
     seen = set()
 
     for record in records:
@@ -740,6 +776,30 @@ def write_csv(records):
         )
 
 
+def count_csv_records():
+    if not OUTPUT_CSV.exists():
+        return 0
+
+    with OUTPUT_CSV.open(
+        "r",
+        encoding="utf-8-sig",
+        newline="",
+    ) as file:
+
+        reader = csv.reader(
+            file
+        )
+
+        rows = list(
+            reader
+        )
+
+    if len(rows) <= 1:
+        return 0
+
+    return len(rows) - 1
+
+
 # ============================================================
 # METADATA
 # ============================================================
@@ -765,7 +825,7 @@ def write_metadata(
     )
 
     csv_records = (
-        unique_records
+        count_csv_records()
     )
 
     pages_complete = (
@@ -794,7 +854,7 @@ def write_metadata(
         and counts_match
     )
 
-    detail_complete = (
+    detail_coverage_complete = (
         detail_result[
             "detail_success"
         ]
@@ -809,6 +869,22 @@ def write_metadata(
         if coverage_complete
         else "ERROR"
     )
+
+    if coverage_complete:
+
+        note = (
+            "Cobertura estructural validada "
+            "contra el total informado por "
+            "COMPR.AR y el recorrido completo "
+            "de todas las páginas."
+        )
+
+    else:
+
+        note = (
+            "No se pudo certificar cobertura "
+            "estructural 100%."
+        )
 
     metadata = {
         "extraction_timestamp":
@@ -887,34 +963,17 @@ def write_metadata(
             ],
 
         "detail_coverage_complete":
-            detail_complete,
+            detail_coverage_complete,
 
         "coverage_basis":
             "PORTAL_TOTAL_VS_FULL_PAGINATION",
 
         "validation_status":
             validation_status,
+
+        "note":
+            note,
     }
-
-    if coverage_complete:
-
-        metadata[
-            "note"
-        ] = (
-            "Cobertura estructural validada "
-            "contra el total informado por "
-            "COMPR.AR y el recorrido completo "
-            "de todas las páginas."
-        )
-
-    else:
-
-        metadata[
-            "note"
-        ] = (
-            "No se pudo certificar la cobertura "
-            "estructural del 100%."
-        )
 
     OUTPUT_METADATA.write_text(
         json.dumps(
@@ -927,10 +986,10 @@ def write_metadata(
 
 
 # ============================================================
-# MAIN
+# MAIN ASYNC
 # ============================================================
 
-def main():
+async def main():
     print(
         "===================================="
     )
@@ -943,29 +1002,31 @@ def main():
         "===================================="
     )
 
-    with sync_playwright() as p:
+    async with async_playwright() as p:
 
-        browser = (
+        browser = await (
             p.chromium.launch(
                 headless=True
             )
         )
 
-        context = (
+        context = await (
             browser.new_context(
                 locale="es-AR",
 
                 user_agent=(
                     "Mozilla/5.0 "
-                    "(Windows NT 10.0; Win64; x64) "
+                    "(Windows NT 10.0; "
+                    "Win64; x64) "
                     "AppleWebKit/537.36 "
                     "(KHTML, like Gecko) "
-                    "Chrome/130.0 Safari/537.36"
+                    "Chrome/130.0 "
+                    "Safari/537.36"
                 ),
             )
         )
 
-        page = (
+        page = await (
             context.new_page()
         )
 
@@ -973,17 +1034,17 @@ def main():
             "Abriendo COMPR.AR..."
         )
 
-        page.goto(
+        await page.goto(
             SOURCE_URL,
             wait_until="domcontentloaded",
             timeout=TIMEOUT_MS,
         )
 
-        page.wait_for_timeout(
+        await page.wait_for_timeout(
             3000
         )
 
-        body = (
+        body_text = await (
             page
             .locator("body")
             .inner_text()
@@ -991,7 +1052,7 @@ def main():
 
         if (
             "Licitaciones de apertura próxima"
-            not in body
+            not in body_text
         ):
 
             raise RuntimeError(
@@ -1000,11 +1061,11 @@ def main():
             )
 
         # ====================================================
-        # LISTADO COMPLETO
+        # LISTADO
         # ====================================================
 
         extraction_result = (
-            extract_all_processes(
+            await extract_all_processes(
                 page
             )
         )
@@ -1015,15 +1076,15 @@ def main():
             ]
         )
 
-        # ====================================================
-        # VALIDACION ESTRUCTURAL TEMPRANA
-        # ====================================================
-
         portal_total = (
             extraction_result[
                 "portal_total"
             ]
         )
+
+        # ====================================================
+        # VALIDACION DEL LISTADO
+        # ====================================================
 
         if (
             len(records)
@@ -1032,11 +1093,11 @@ def main():
 
             print("")
             print(
-                "ERROR:"
+                "ERROR DE COBERTURA"
             )
 
             print(
-                "Portal:",
+                "Total portal:",
                 portal_total,
             )
 
@@ -1045,25 +1106,25 @@ def main():
                 len(records),
             )
 
-            browser.close()
+            await browser.close()
 
             sys.exit(1)
 
         # ====================================================
-        # DETALLE
+        # DETALLES
         # ====================================================
 
         detail_result = (
-            enrich_process_details(
+            await enrich_process_details(
                 context,
                 records,
             )
         )
 
-        browser.close()
+        await browser.close()
 
     # ========================================================
-    # ARCHIVOS
+    # SALIDAS
     # ========================================================
 
     write_json(
@@ -1080,7 +1141,7 @@ def main():
     )
 
     # ========================================================
-    # RESUMEN
+    # RESULTADO
     # ========================================================
 
     print("")
@@ -1097,7 +1158,7 @@ def main():
     )
 
     print(
-        "Portal:",
+        "Total portal:",
         portal_total,
     )
 
@@ -1117,6 +1178,13 @@ def main():
         "Páginas procesadas:",
         extraction_result[
             "pages_processed"
+        ],
+    )
+
+    print(
+        "Detalles esperados:",
+        detail_result[
+            "detail_expected"
         ],
     )
 
@@ -1159,5 +1227,11 @@ def main():
     )
 
 
+# ============================================================
+# ENTRYPOINT
+# ============================================================
+
 if __name__ == "__main__":
-    main()
+    asyncio.run(
+        main()
+    )
