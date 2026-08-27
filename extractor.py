@@ -30,9 +30,12 @@ OUTPUT_METADATA = Path("metadata.json")
 TIMEOUT_MS = 180000
 
 PAGE_WAIT_MS = 1000
-DETAIL_WAIT_MS = 500
+DETAIL_WAIT_MS = 400
 
 MAX_DETAIL_TEXT = 10000
+
+MAX_OPEN_RETRIES = 3
+MAX_EXTRACTION_RETRIES = 3
 
 csv.field_size_limit(sys.maxsize)
 
@@ -90,11 +93,12 @@ async def robust_open_comprar(page):
 
     for attempt in range(
         1,
-        4,
+        MAX_OPEN_RETRIES + 1,
     ):
 
         print(
-            f"Intento {attempt}/3 "
+            f"Intento {attempt}/"
+            f"{MAX_OPEN_RETRIES} "
             "de apertura de COMPR.AR..."
         )
 
@@ -176,7 +180,7 @@ async def robust_open_comprar(page):
                 str(exc),
             )
 
-        if attempt < 3:
+        if attempt < MAX_OPEN_RETRIES:
 
             print(
                 "Esperando 10 segundos "
@@ -235,7 +239,9 @@ async def extract_portal_total(page):
                 .replace(",", "")
             )
 
-            return int(raw_total)
+            return int(
+                raw_total
+            )
 
     raise RuntimeError(
         "No se pudo identificar "
@@ -250,15 +256,15 @@ async def extract_portal_total(page):
 
 async def extract_process_rows(page):
     """
-    Extrae las columnas del listado:
+    Extrae:
 
-    1. Número de proceso
-    2. Nombre descriptivo
-    3. Tipo de proceso
-    4. Fecha de apertura
-    5. Estado
-    6. Unidad ejecutora
-    7. Servicio Administrativo Financiero
+    - Número de proceso
+    - Nombre descriptivo
+    - Tipo de proceso
+    - Fecha de apertura
+    - Estado
+    - Unidad ejecutora
+    - Servicio Administrativo Financiero
     """
 
     rows = page.locator(
@@ -324,9 +330,11 @@ async def extract_process_rows(page):
         ):
             continue
 
-        # ----------------------------------------------------
-        # LINK
-        # ----------------------------------------------------
+        # Evita filas que no sean procesos.
+        if (
+            len(numero_proceso) < 3
+        ):
+            continue
 
         process_url = ""
         process_href = ""
@@ -373,7 +381,7 @@ async def extract_process_rows(page):
             "nombre_proceso":
                 values[1],
 
-            # NUEVO / EXPLICITO
+            # CAMPO EXPLICITO PARA EL INFORME
             "tipo_proceso":
                 values[2],
 
@@ -404,64 +412,42 @@ async def extract_process_rows(page):
 
 
 # ============================================================
-# ESPERAR CAMBIO DE PAGINA
+# IDENTIFICADOR DE PAGINA
 # ============================================================
 
-async def wait_for_page_change(
-    page,
-    previous_first,
-):
-    for _ in range(40):
-
-        await page.wait_for_timeout(
-            500
+async def get_page_signature(page):
+    records = await (
+        extract_process_rows(
+            page
         )
+    )
 
-        records = (
-            await extract_process_rows(
-                page
-            )
+    if not records:
+        return ""
+
+    first_numbers = [
+        clean_text(
+            item[
+                "numero_proceso"
+            ]
         )
+        for item in records[:3]
+    ]
 
-        if not records:
-            continue
-
-        new_first = (
-            records[0]
-            ["numero_proceso"]
-        )
-
-        if (
-            new_first
-            and new_first
-            != previous_first
-        ):
-
-            return records
-
-    raise RuntimeError(
-        "La página no cambió "
-        "después de accionar el paginador."
+    return "|".join(
+        first_numbers
     )
 
 
 # ============================================================
-# BUSCAR LINK DE PAGINACION
+# BUSCAR BOTON NEXT REAL
 # ============================================================
 
-async def find_pagination_link(
-    page,
-    next_page_number,
-):
+async def find_next_link(page):
     """
-    Busca primero el link ASP.NET exacto Page$N.
+    Busca EXCLUSIVAMENTE el control ASP.NET Page$Next.
 
-    Si no está visible, busca Page$Next.
-
-    IMPORTANTE:
-    no ejecutamos __doPostBack manualmente.
-    Dejamos que Playwright haga clic en el
-    propio link generado por COMPR.AR.
+    No intenta navegar a números absolutos.
     """
 
     anchors = page.locator(
@@ -472,21 +458,9 @@ async def find_pagination_link(
         anchors.count()
     )
 
-    exact_page = None
-    next_link = None
-
-    exact_pattern = re.compile(
-        rf"Page\${next_page_number}"
-        rf"(?:'|\")?",
-        flags=re.IGNORECASE,
-    )
-
-    next_pattern = re.compile(
-        r"Page\$Next",
-        flags=re.IGNORECASE,
-    )
-
-    for index in range(count):
+    for index in range(
+        count
+    ):
 
         anchor = anchors.nth(
             index
@@ -498,41 +472,10 @@ async def find_pagination_link(
             or ""
         )
 
-        if exact_pattern.search(
-            href
-        ):
-
-            exact_page = anchor
-            break
-
-        if next_pattern.search(
-            href
-        ):
-
-            next_link = anchor
-
-    if exact_page is not None:
-        return exact_page
-
-    if next_link is not None:
-        return next_link
-
-    # --------------------------------------------------------
-    # FALLBACK POR TEXTO
-    # --------------------------------------------------------
-
-    for index in range(count):
-
-        anchor = anchors.nth(
-            index
-        )
-
-        text = clean_text(
-            await anchor.inner_text()
-        )
-
-        if text == str(
-            next_page_number
+        if re.search(
+            r"Page\$Next",
+            href,
+            flags=re.IGNORECASE,
         ):
 
             return anchor
@@ -541,84 +484,85 @@ async def find_pagination_link(
 
 
 # ============================================================
-# PASAR A PAGINA SIGUIENTE
+# AVANZAR UNA PAGINA
 # ============================================================
 
-async def go_to_next_page(
+async def click_next_page(
     page,
-    next_page_number,
+    previous_signature,
 ):
-    current_records = (
-        await extract_process_rows(
+    next_link = await (
+        find_next_link(
             page
         )
     )
 
-    if not current_records:
+    if next_link is None:
 
-        raise RuntimeError(
-            "No hay procesos en "
-            "la página actual."
-        )
-
-    previous_first = (
-        current_records[0]
-        ["numero_proceso"]
-    )
-
-    paginator = (
-        await find_pagination_link(
-            page,
-            next_page_number,
-        )
-    )
-
-    if paginator is None:
-
-        raise RuntimeError(
-            "No se encontró link para "
-            f"avanzar a página "
-            f"{next_page_number}."
-        )
+        return False
 
     print(
-        "Haciendo clic en paginador..."
+        "Haciendo clic en Page$Next..."
     )
 
     try:
 
-        await paginator.click(
+        await next_link.click(
             timeout=60000,
         )
 
     except Exception:
 
-        # Segundo intento usando click forzado.
-        await paginator.click(
+        await next_link.click(
             force=True,
             timeout=60000,
         )
 
-    await page.wait_for_timeout(
-        PAGE_WAIT_MS
-    )
+    # --------------------------------------------------------
+    # ESPERAR CAMBIO REAL
+    # --------------------------------------------------------
 
-    return await (
-        wait_for_page_change(
-            page,
-            previous_first,
+    for _ in range(50):
+
+        await page.wait_for_timeout(
+            500
         )
+
+        try:
+
+            new_signature = await (
+                get_page_signature(
+                    page
+                )
+            )
+
+        except Exception:
+
+            continue
+
+        if (
+            new_signature
+            and
+            new_signature
+            != previous_signature
+        ):
+
+            return True
+
+    raise RuntimeError(
+        "Se accionó Page$Next "
+        "pero el listado no cambió."
     )
 
 
 # ============================================================
-# EXTRAER TODAS LAS PAGINAS
+# UNA PASADA COMPLETA DEL LISTADO
 # ============================================================
 
-async def extract_all_processes(
+async def extract_full_listing_once(
     page
 ):
-    portal_total = (
+    portal_total_start = (
         await extract_portal_total(
             page
         )
@@ -626,17 +570,18 @@ async def extract_all_processes(
 
     print("")
     print(
-        "Total informado por COMPR.AR:",
-        portal_total,
+        "Total inicial informado "
+        "por COMPR.AR:",
+        portal_total_start,
     )
 
-    first_page_records = (
+    first_records = (
         await extract_process_rows(
             page
         )
     )
 
-    if not first_page_records:
+    if not first_records:
 
         raise RuntimeError(
             "No se encontraron procesos "
@@ -644,7 +589,12 @@ async def extract_all_processes(
         )
 
     page_size = len(
-        first_page_records
+        first_records
+    )
+
+    expected_pages = math.ceil(
+        portal_total_start
+        / page_size
     )
 
     print(
@@ -652,62 +602,112 @@ async def extract_all_processes(
         page_size,
     )
 
-    total_pages = math.ceil(
-        portal_total
-        / page_size
-    )
-
     print(
-        "Páginas esperadas:",
-        total_pages,
+        "Páginas teóricas:",
+        expected_pages,
     )
 
     all_records = []
 
-    pages_processed = 0
+    page_signatures = set()
 
-    current_records = (
-        first_page_records
-    )
+    page_number = 1
 
-    for page_number in range(
-        1,
-        total_pages + 1,
-    ):
+    while True:
 
-        if page_number > 1:
+        records = (
+            await extract_process_rows(
+                page
+            )
+        )
 
-            print("")
-            print(
-                f"Abriendo página "
-                f"{page_number}/"
-                f"{total_pages}"
+        if not records:
+
+            raise RuntimeError(
+                "Una página del listado "
+                "no devolvió registros."
             )
 
-            current_records = (
-                await go_to_next_page(
-                    page,
-                    page_number,
-                )
+        signature = await (
+            get_page_signature(
+                page
             )
+        )
+
+        if not signature:
+
+            raise RuntimeError(
+                "No se pudo construir "
+                "la firma de la página."
+            )
+
+        # ----------------------------------------------------
+        # DETECTAR REPETICION DE PAGINA
+        # ----------------------------------------------------
+
+        if signature in page_signatures:
+
+            raise RuntimeError(
+                "COMPR.AR repitió una página "
+                "durante la paginación. "
+                f"Firma: {signature}"
+            )
+
+        page_signatures.add(
+            signature
+        )
 
         print(
-            f"Página {page_number}: "
-            f"{len(current_records)} "
-            "procesos"
+            f"Página real {page_number}: "
+            f"{len(records)} procesos"
         )
 
         all_records.extend(
-            current_records
+            records
         )
 
-        pages_processed += 1
+        # ----------------------------------------------------
+        # ¿HAY NEXT?
+        # ----------------------------------------------------
+
+        next_link = await (
+            find_next_link(
+                page
+            )
+        )
+
+        if next_link is None:
+
+            print(
+                "No existe Page$Next. "
+                "Fin del listado."
+            )
+
+            break
+
+        await click_next_page(
+            page,
+            signature,
+        )
+
+        page_number += 1
+
+        # Seguridad por si el sitio entra
+        # en un loop inesperado.
+        if page_number > 200:
+
+            raise RuntimeError(
+                "Se superaron 200 páginas. "
+                "Se aborta para evitar loop."
+            )
 
     # ========================================================
-    # DEDUPLICACION
+    # DEDUPLICAR
     # ========================================================
 
     unique = {}
+
+    duplicates = []
 
     for record in all_records:
 
@@ -720,6 +720,12 @@ async def extract_all_processes(
         if not numero:
             continue
 
+        if numero in unique:
+
+            duplicates.append(
+                numero
+            )
+
         unique[numero] = (
             record
         )
@@ -728,17 +734,50 @@ async def extract_all_processes(
         unique.values()
     )
 
+    # ========================================================
+    # TOTAL FINAL DEL PORTAL
+    # ========================================================
+
+    portal_total_end = None
+
+    try:
+
+        portal_total_end = (
+            await extract_portal_total(
+                page
+            )
+        )
+
+    except Exception:
+
+        pass
+
     print("")
     print(
         "===================================="
     )
 
     print(
-        "RESULTADO LISTADO"
+        "RESULTADO DE LA PASADA"
     )
 
     print(
         "===================================="
+    )
+
+    print(
+        "Total portal inicial:",
+        portal_total_start,
+    )
+
+    print(
+        "Total portal final:",
+        portal_total_end,
+    )
+
+    print(
+        "Páginas reales procesadas:",
+        page_number,
     )
 
     print(
@@ -751,21 +790,32 @@ async def extract_all_processes(
         len(records),
     )
 
+    print(
+        "Duplicados detectados:",
+        len(duplicates),
+    )
+
     return {
-        "portal_total":
-            portal_total,
+        "portal_total_start":
+            portal_total_start,
+
+        "portal_total_end":
+            portal_total_end,
 
         "page_size":
             page_size,
 
         "pages_expected":
-            total_pages,
+            expected_pages,
 
         "pages_processed":
-            pages_processed,
+            page_number,
 
         "raw_records":
             len(all_records),
+
+        "duplicates_detected":
+            len(duplicates),
 
         "records":
             records,
@@ -773,7 +823,171 @@ async def extract_all_processes(
 
 
 # ============================================================
-# DETALLES
+# EXTRAER LISTADO CON REINTENTOS
+# ============================================================
+
+async def extract_all_processes(
+    page
+):
+    last_error = None
+
+    for attempt in range(
+        1,
+        MAX_EXTRACTION_RETRIES + 1,
+    ):
+
+        print("")
+        print(
+            "===================================="
+        )
+
+        print(
+            f"PASADA DE EXTRACCION "
+            f"{attempt}/"
+            f"{MAX_EXTRACTION_RETRIES}"
+        )
+
+        print(
+            "===================================="
+        )
+
+        try:
+
+            # Siempre volvemos al inicio,
+            # para no heredar estado del intento anterior.
+            await robust_open_comprar(
+                page
+            )
+
+            result = await (
+                extract_full_listing_once(
+                    page
+                )
+            )
+
+            unique_records = len(
+                result[
+                    "records"
+                ]
+            )
+
+            portal_start = (
+                result[
+                    "portal_total_start"
+                ]
+            )
+
+            portal_end = (
+                result[
+                    "portal_total_end"
+                ]
+            )
+
+            # ------------------------------------------------
+            # EL TOTAL NO DEBE CAMBIAR DURANTE LA EXTRACCION
+            # ------------------------------------------------
+
+            total_stable = (
+                portal_end is None
+                or
+                portal_start
+                == portal_end
+            )
+
+            counts_match = (
+                unique_records
+                == portal_start
+            )
+
+            no_duplicates = (
+                result[
+                    "duplicates_detected"
+                ] == 0
+            )
+
+            if (
+                total_stable
+                and
+                counts_match
+                and
+                no_duplicates
+            ):
+
+                print("")
+                print(
+                    "PASADA VALIDADA "
+                    "CORRECTAMENTE."
+                )
+
+                return result
+
+            print("")
+            print(
+                "La pasada no pudo "
+                "certificarse:"
+            )
+
+            print(
+                "- total estable:",
+                total_stable,
+            )
+
+            print(
+                "- cantidad coincide:",
+                counts_match,
+            )
+
+            print(
+                "- sin duplicados:",
+                no_duplicates,
+            )
+
+            print(
+                "- portal:",
+                portal_start,
+            )
+
+            print(
+                "- únicos:",
+                unique_records,
+            )
+
+        except Exception as exc:
+
+            last_error = exc
+
+            print(
+                "Error durante la pasada:",
+                str(exc),
+            )
+
+        if (
+            attempt
+            <
+            MAX_EXTRACTION_RETRIES
+        ):
+
+            print(
+                "Esperando 10 segundos "
+                "antes de repetir "
+                "la extracción completa..."
+            )
+
+            await page.wait_for_timeout(
+                10000
+            )
+
+    raise RuntimeError(
+        "No fue posible obtener una "
+        "extracción completa y consistente "
+        "de COMPR.AR después de "
+        f"{MAX_EXTRACTION_RETRIES} intentos. "
+        f"Último error: {last_error}"
+    )
+
+
+# ============================================================
+# ENRIQUECER DETALLES
 # ============================================================
 
 async def enrich_process_details(
@@ -797,12 +1011,10 @@ async def enrich_process_details(
         start=1,
     ):
 
-        process_url = (
-            clean_text(
-                record.get(
-                    "process_url",
-                    "",
-                )
+        process_url = clean_text(
+            record.get(
+                "process_url",
+                "",
             )
         )
 
@@ -825,8 +1037,8 @@ async def enrich_process_details(
             continue
 
         print(
-            f"Detalle "
-            f"{index}/{total}: "
+            f"Detalle {index}/"
+            f"{total}: "
             f"{record['numero_proceso']}"
         )
 
@@ -838,11 +1050,8 @@ async def enrich_process_details(
                 timeout=TIMEOUT_MS,
             )
 
-            await (
-                detail_page
-                .wait_for_timeout(
-                    DETAIL_WAIT_MS
-                )
+            await detail_page.wait_for_timeout(
+                DETAIL_WAIT_MS
             )
 
             body_text = await (
@@ -892,9 +1101,7 @@ async def enrich_process_details(
                 [:500]
             )
 
-    await (
-        detail_page.close()
-    )
+    await detail_page.close()
 
     return {
         "detail_expected":
@@ -968,9 +1175,7 @@ def write_csv(records):
 
     for record in records:
 
-        for key in (
-            record.keys()
-        ):
+        for key in record.keys():
 
             if key not in seen:
 
@@ -1036,7 +1241,13 @@ def write_metadata(
 ):
     portal_total = (
         extraction_result[
-            "portal_total"
+            "portal_total_start"
+        ]
+    )
+
+    portal_total_end = (
+        extraction_result[
+            "portal_total_end"
         ]
     )
 
@@ -1054,14 +1265,11 @@ def write_metadata(
         count_csv_records()
     )
 
-    pages_complete = (
-        extraction_result[
-            "pages_processed"
-        ]
-        ==
-        extraction_result[
-            "pages_expected"
-        ]
+    total_stable = (
+        portal_total_end is None
+        or
+        portal_total
+        == portal_total_end
     )
 
     counts_match = (
@@ -1074,10 +1282,17 @@ def write_metadata(
         csv_records
     )
 
+    no_duplicates = (
+        extraction_result[
+            "duplicates_detected"
+        ] == 0
+    )
+
     coverage_complete = (
         portal_total > 0
-        and pages_complete
+        and total_stable
         and counts_match
+        and no_duplicates
     )
 
     detail_coverage_complete = (
@@ -1111,8 +1326,14 @@ def write_metadata(
         "universe":
             "Licitaciones de apertura próxima",
 
-        "portal_total":
+        "portal_total_start":
             portal_total,
+
+        "portal_total_end":
+            portal_total_end,
+
+        "portal_total_stable":
+            total_stable,
 
         "page_size":
             extraction_result[
@@ -1134,6 +1355,11 @@ def write_metadata(
                 "raw_records"
             ],
 
+        "duplicates_detected":
+            extraction_result[
+                "duplicates_detected"
+            ],
+
         "unique_records":
             unique_records,
 
@@ -1142,9 +1368,6 @@ def write_metadata(
 
         "csv_records":
             csv_records,
-
-        "pages_complete":
-            pages_complete,
 
         "counts_match":
             counts_match,
@@ -1176,7 +1399,10 @@ def write_metadata(
             detail_coverage_complete,
 
         "coverage_basis":
-            "PORTAL_TOTAL_VS_FULL_PAGINATION",
+            (
+                "PORTAL_TOTAL_"
+                "VS_SEQUENTIAL_NEXT_PAGINATION"
+            ),
 
         "validation_status":
             validation_status,
@@ -1187,10 +1413,13 @@ def write_metadata(
         metadata[
             "note"
         ] = (
-            "Cobertura estructural "
-            "100% validada contra "
-            "el total informado por "
-            "COMPR.AR y todas las páginas."
+            "Cobertura estructural 100% "
+            "validada: se recorrió el listado "
+            "secuencialmente mediante Page$Next, "
+            "sin páginas repetidas ni procesos "
+            "duplicados, y la cantidad de procesos "
+            "coincide con el total informado "
+            "por COMPR.AR."
         )
 
     else:
@@ -1257,20 +1486,8 @@ async def main():
             context.new_page()
         )
 
-        print(
-            "Abriendo COMPR.AR..."
-        )
-
         # ====================================================
-        # ABRIR
-        # ====================================================
-
-        await robust_open_comprar(
-            page
-        )
-
-        # ====================================================
-        # LISTADO
+        # LISTADO COMPLETO
         # ====================================================
 
         extraction_result = (
@@ -1287,37 +1504,9 @@ async def main():
 
         portal_total = (
             extraction_result[
-                "portal_total"
+                "portal_total_start"
             ]
         )
-
-        # ====================================================
-        # VALIDACION TEMPRANA
-        # ====================================================
-
-        if (
-            len(records)
-            != portal_total
-        ):
-
-            print("")
-            print(
-                "ERROR DE COBERTURA"
-            )
-
-            print(
-                "Total portal:",
-                portal_total,
-            )
-
-            print(
-                "Procesos únicos:",
-                len(records),
-            )
-
-            await browser.close()
-
-            sys.exit(1)
 
         # ====================================================
         # DETALLES
@@ -1377,23 +1566,16 @@ async def main():
     )
 
     print(
-        "Páginas esperadas:",
+        "Duplicados:",
         extraction_result[
-            "pages_expected"
+            "duplicates_detected"
         ],
     )
 
     print(
-        "Páginas procesadas:",
+        "Páginas reales:",
         extraction_result[
             "pages_processed"
-        ],
-    )
-
-    print(
-        "Detalles esperados:",
-        detail_result[
-            "detail_expected"
         ],
     )
 
@@ -1417,17 +1599,6 @@ async def main():
             "detail_no_direct_url"
         ],
     )
-
-    if (
-        portal_total
-        != len(records)
-    ):
-
-        print(
-            "ERROR: cobertura incompleta."
-        )
-
-        sys.exit(1)
 
     print("")
     print(
