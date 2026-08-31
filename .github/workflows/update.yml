@@ -4,7 +4,15 @@ on:
   workflow_dispatch:
 
   schedule:
+    # Argentina UTC-3
+    # 05:45 ART
+    - cron: "45 8 * * *"
+
+    # 06:30 ART
     - cron: "30 9 * * *"
+
+    # 07:15 ART
+    - cron: "15 10 * * *"
 
 permissions:
   contents: write
@@ -12,6 +20,8 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+
+    timeout-minutes: 90
 
     steps:
       - name: Checkout repository
@@ -31,13 +41,87 @@ jobs:
         run: |
           python -m playwright install --with-deps chromium
 
-      - name: Run extractor
+      - name: Run extractor with retries
+        shell: bash
         run: |
-          python extractor.py
+          set +e
+
+          MAX_ATTEMPTS=4
+          ATTEMPT=1
+          SUCCESS=0
+
+          while [ "$ATTEMPT" -le "$MAX_ATTEMPTS" ]; do
+            echo "========================================"
+            echo "EXTRACTION ATTEMPT $ATTEMPT/$MAX_ATTEMPTS"
+            echo "========================================"
+
+            python extractor.py
+            EXIT_CODE=$?
+
+            if [ "$EXIT_CODE" -eq 0 ]; then
+              echo "Extraction completed successfully."
+              SUCCESS=1
+              break
+            fi
+
+            echo "Extraction failed with exit code $EXIT_CODE."
+
+            if [ "$ATTEMPT" -lt "$MAX_ATTEMPTS" ]; then
+              echo "Waiting 5 minutes before retry..."
+              sleep 300
+            fi
+
+            ATTEMPT=$((ATTEMPT + 1))
+          done
+
+          if [ "$SUCCESS" -ne 1 ]; then
+            echo "ERROR: all extraction attempts failed."
+            exit 1
+          fi
 
       - name: Show metadata
         run: |
           cat metadata.json
+
+      - name: Validate metadata
+        run: |
+          python - <<'PY'
+          import json
+          import sys
+
+          with open("metadata.json", "r", encoding="utf-8") as f:
+              m = json.load(f)
+
+          checks = {
+              "coverage_complete": m.get("coverage_complete") is True,
+              "validation_status": m.get("validation_status") == "OK",
+              "portal_total_stable": m.get("portal_total_stable") is True,
+              "counts_match": m.get("counts_match") is True,
+              "pages_complete": m.get("pages_complete") is True,
+              "duplicates_detected": m.get("duplicates_detected") == 0,
+              "counts_equal": (
+                  m.get("portal_total_start")
+                  == m.get("portal_total_end")
+                  == m.get("unique_records")
+                  == m.get("json_records")
+                  == m.get("csv_records")
+              ),
+              "pages_equal": (
+                  m.get("pages_processed")
+                  == m.get("pages_expected")
+              ),
+          }
+
+          print("Metadata validation:")
+          for name, value in checks.items():
+              print(f"- {name}: {value}")
+
+          if not all(checks.values()):
+              print("ERROR: metadata validation failed.")
+              sys.exit(1)
+
+          print("Metadata validation OK.")
+          PY
 
       - name: Commit updated data
         run: |
