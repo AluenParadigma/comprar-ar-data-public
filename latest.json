@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-10-29T15:33:21.630623+00:00",
+  "generated_at": "2026-10-29T16:21:29.132810+00:00",
   "source": "COMPR.AR",
   "source_url": "https://comprar.gob.ar/Compras.aspx?qs=W1HXHGHtH10=",
   "universe": "Licitaciones de apertura próxima",
-  "total_records": 497,
+  "total_records": 500,
   "data": [
     {
       "numero_proceso": "38/19-1214-LPR26",
@@ -4855,19 +4855,6 @@
       "detail_text": ""
     },
     {
-      "numero_proceso": "26-0008-LPR26",
-      "nombre_proceso": "Adquisición sistema de alimentación ininterrumpida (UPS)",
-      "tipo_proceso": "Licitación Privada",
-      "fecha_apertura": "06/11/2026 16:00 Hrs.",
-      "estado": "Publicado",
-      "unidad_ejecutora": "26/000 - Dirección de Compras y Contrataciones - MRE",
-      "servicio_administrativo_financiero": "307 - Ministerio de Relaciones Exteriores, Comercio Internacional y Culto",
-      "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
-      "detail_status": "NO_DIRECT_URL",
-      "detail_text": ""
-    },
-    {
       "numero_proceso": "50-0013-CDI26",
       "nombre_proceso": "Adquisición de artículos de papelería y cartón",
       "tipo_proceso": "Contratación Directa",
@@ -4876,7 +4863,7 @@
       "unidad_ejecutora": "50 - Departamento de Compras y Contrataciones",
       "servicio_administrativo_financiero": "614 - Instituto Nacional de Semillas",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -4889,7 +4876,7 @@
       "unidad_ejecutora": "46/000 - Coordinación de Licitaciones y Contrataciones - DNV",
       "servicio_administrativo_financiero": "604 - Dirección Nacional de Vialidad",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -4902,7 +4889,7 @@
       "unidad_ejecutora": "74/34 - Direccion de Lucha Contra Incendios Forestales y Emergencias - Administración de Parques Nacionales",
       "servicio_administrativo_financiero": "107 - Administración de Parques Nacionales",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -4915,7 +4902,7 @@
       "unidad_ejecutora": "38/25 - Base Aeronaval Comandante espora",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -4928,7 +4915,7 @@
       "unidad_ejecutora": "84/77 - Departamento Contaduría y Finanzas (EMGE)",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -4941,7 +4928,7 @@
       "unidad_ejecutora": "37/088 - Escuadron Seguridad Vial \"Balcarce\"",
       "servicio_administrativo_financiero": "375 - Gendarmeria Nacional",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -4954,7 +4941,7 @@
       "unidad_ejecutora": "84/21 - Comando Brigada Mecanizada XI",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -4967,7 +4954,7 @@
       "unidad_ejecutora": "84/21 - Comando Brigada Mecanizada XI",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -4979,6 +4966,19 @@
       "estado": "Publicado",
       "unidad_ejecutora": "84/21 - Comando Brigada Mecanizada XI",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
+      "process_url": "",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "detail_status": "NO_DIRECT_URL",
+      "detail_text": ""
+    },
+    {
+      "numero_proceso": "40/24-0822-CDI26",
+      "nombre_proceso": "Servicio de mantenimiento y reparacion de vehiculo para la IX Brigada Aerea",
+      "tipo_proceso": "Contratación Directa",
+      "fecha_apertura": "10/11/2026 09:00 Hrs.",
+      "estado": "Publicado",
+      "unidad_ejecutora": "40/024 - UOC CRV",
+      "servicio_administrativo_financiero": "381 - Estado Mayor General de La Fuerza Aérea",
       "process_url": "",
       "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
@@ -5284,6 +5284,19 @@
       "detail_text": ""
     },
     {
+      "numero_proceso": "38/18-1352-LPR26",
+      "nombre_proceso": "ADQUISICIÓN DE INSUMOS DE REFRIGERACIÓN PARA EL BUQUE ESCUELA FRAGATA A.R.A “LIBERTAD\"",
+      "tipo_proceso": "Licitación Privada",
+      "fecha_apertura": "11/11/2026 10:00 Hrs.",
+      "estado": "Publicado",
+      "unidad_ejecutora": "38/18 - Division Contrataciones - Comando de Transportes Navales",
+      "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
+      "process_url": "",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "detail_status": "NO_DIRECT_URL",
+      "detail_text": ""
+    },
+    {
       "numero_proceso": "510-0002-LPU26",
       "nombre_proceso": "ADQUISICIÓN DE SERVIDORES",
       "tipo_proceso": "Licitación Pública",
@@ -5292,7 +5305,7 @@
       "unidad_ejecutora": "510 - ENTE NACIONAL REGULADOR DEL GAS Y LA ELECTRICIDAD",
       "servicio_administrativo_financiero": "674 - ENTE NACIONAL REGULADOR DEL GAS Y LA ELECTRICIDAD",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5305,7 +5318,20 @@
       "unidad_ejecutora": "21/000 - Dirección General de Administración - DNM",
       "servicio_administrativo_financiero": "201 - Dirección Nacional de Migraciones",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "detail_status": "NO_DIRECT_URL",
+      "detail_text": ""
+    },
+    {
+      "numero_proceso": "26-0008-LPR26",
+      "nombre_proceso": "Adquisición sistema de alimentación ininterrumpida (UPS)",
+      "tipo_proceso": "Licitación Privada",
+      "fecha_apertura": "11/11/2026 12:00 Hrs.",
+      "estado": "Publicado",
+      "unidad_ejecutora": "26/000 - Dirección de Compras y Contrataciones - MRE",
+      "servicio_administrativo_financiero": "307 - Ministerio de Relaciones Exteriores, Comercio Internacional y Culto",
+      "process_url": "",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5318,7 +5344,7 @@
       "unidad_ejecutora": "368/000 - Dirección General de Administración - UIF",
       "servicio_administrativo_financiero": "670 - Unidad de Información Financiera",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5331,7 +5357,7 @@
       "unidad_ejecutora": "38/25 - Base Aeronaval Comandante espora",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5344,7 +5370,7 @@
       "unidad_ejecutora": "340/001 - Dirección General de Administración - SSSLD",
       "servicio_administrativo_financiero": "376 - Subsecretaría de Planeamiento Operativo y Servicio Logístico de la Defensa",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5357,7 +5383,7 @@
       "unidad_ejecutora": "40/031 - OUC INFRA",
       "servicio_administrativo_financiero": "381 - Estado Mayor General de La Fuerza Aérea",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5370,7 +5396,7 @@
       "unidad_ejecutora": "84/26 - Hospital Militar Central 601",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5383,7 +5409,7 @@
       "unidad_ejecutora": "84/128 - Dirección General de Intendencia",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5396,7 +5422,7 @@
       "unidad_ejecutora": "38/01 - ARSENAL NAVAL PUERTO BELGRANO",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5409,7 +5435,7 @@
       "unidad_ejecutora": "Servicio Geológico Minero Argentino - Dir. Administración y Finanzas - Compras",
       "servicio_administrativo_financiero": "624 - Servicio Geológico Minero Argentino",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5422,7 +5448,7 @@
       "unidad_ejecutora": "91/00 - Departamento de Compras, Mantenimiento y Suministros",
       "servicio_administrativo_financiero": "103 - Consejo Nacional de Investigaciones Científicas y Técnicas",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5435,7 +5461,7 @@
       "unidad_ejecutora": "509/5 - Inst Nac de Rehab Psicofísica del Sur Dr. Juan Tesone",
       "servicio_administrativo_financiero": "919 - ADMINISTRACION NACIONAL DE ESTABLECIMIENTOS DE SALUD",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5448,7 +5474,7 @@
       "unidad_ejecutora": "37/049 - Escuadrón 26 \"Barreal\"",
       "servicio_administrativo_financiero": "375 - Gendarmeria Nacional",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5461,7 +5487,7 @@
       "unidad_ejecutora": "91/00 - Departamento de Compras, Mantenimiento y Suministros",
       "servicio_administrativo_financiero": "103 - Consejo Nacional de Investigaciones Científicas y Técnicas",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5474,7 +5500,7 @@
       "unidad_ejecutora": "74/00 - ADMINISTRACIÓN DE PARQUES NACIONALES - COORDINACIÓN DE CONTRATACIONES",
       "servicio_administrativo_financiero": "107 - Administración de Parques Nacionales",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5487,7 +5513,7 @@
       "unidad_ejecutora": "14 - Compras y Contrataciones - CNEA",
       "servicio_administrativo_financiero": "105 - Comisión Nacional de Energía Atómica",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5500,7 +5526,7 @@
       "unidad_ejecutora": "68/00 - Departamento de Administracion de Bienes - ANLIS",
       "servicio_administrativo_financiero": "906 - Administración Nacional de Laboratorios e Institutos de Salud “Dr. Carlos Malbrán”",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5513,7 +5539,7 @@
       "unidad_ejecutora": "64/000 - Departamento de Compras y Contrataciones- SRT",
       "servicio_administrativo_financiero": "852 - Superintendencia de Riesgos del Trabajo",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5526,7 +5552,7 @@
       "unidad_ejecutora": "347/000 - Dirección General de Administración - MS",
       "servicio_administrativo_financiero": "343 - Ministerio de Seguridad",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5539,7 +5565,7 @@
       "unidad_ejecutora": "74/23 - Parque Nacional Pre Delta",
       "servicio_administrativo_financiero": "107 - Administración de Parques Nacionales",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5552,7 +5578,7 @@
       "unidad_ejecutora": "52 - Coordinación de Compras y Contrataciones - SENASA",
       "servicio_administrativo_financiero": "623 - Servicio Nacional de Sanidad y Calidad Agroalimentaria",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5565,7 +5591,7 @@
       "unidad_ejecutora": "23/000 - Dirección General de Administración - SG",
       "servicio_administrativo_financiero": "301 - Secretaria General de la Presidencia de la Nación",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5578,7 +5604,7 @@
       "unidad_ejecutora": "38/19 - División Contrataciones del Cuartel General del EMGA",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5591,7 +5617,7 @@
       "unidad_ejecutora": "84/77 - Departamento Contaduría y Finanzas (EMGE)",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5604,7 +5630,7 @@
       "unidad_ejecutora": "340/001 - Dirección General de Administración - SSSLD",
       "servicio_administrativo_financiero": "376 - Subsecretaría de Planeamiento Operativo y Servicio Logístico de la Defensa",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5617,7 +5643,7 @@
       "unidad_ejecutora": "300/000 - Dirección General de Administración - SECLyT",
       "servicio_administrativo_financiero": "338 - Secretaria Legal y Técnica",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5630,7 +5656,7 @@
       "unidad_ejecutora": "84/30 - Liceo Militar General Paz",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5643,7 +5669,7 @@
       "unidad_ejecutora": "84/129 - Dirección de Arsenales",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5656,7 +5682,7 @@
       "unidad_ejecutora": "84/26 - Hospital Militar Central 601",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5669,7 +5695,7 @@
       "unidad_ejecutora": "38/6 - INTENDENCIA NAVAL USHUAIA",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5682,7 +5708,7 @@
       "unidad_ejecutora": "380/000 - COMPRAS Y CONTRATACIONES - CNCPS",
       "servicio_administrativo_financiero": "345 - Consejo Nacional de Coordinación de Politicas Sociales",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5695,7 +5721,7 @@
       "unidad_ejecutora": "16/000 - Dirección General de Administración-ARN",
       "servicio_administrativo_financiero": "112 - Autoridad Regulatoria Nuclear",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5708,7 +5734,7 @@
       "unidad_ejecutora": "14/3 - Centro Atómico Bariloche - CNEA",
       "servicio_administrativo_financiero": "105 - Comisión Nacional de Energía Atómica",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5721,7 +5747,7 @@
       "unidad_ejecutora": "84/30 - Liceo Militar General Paz",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5734,7 +5760,7 @@
       "unidad_ejecutora": "487 - División Compras y Suministros - Superintendencia de Bienestar de la Policia Federal Argentina",
       "servicio_administrativo_financiero": "403 - Superintendencia de Bienestar de la Policia Federal Argentina",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5747,7 +5773,7 @@
       "unidad_ejecutora": "74/00 - ADMINISTRACIÓN DE PARQUES NACIONALES - COORDINACIÓN DE CONTRATACIONES",
       "servicio_administrativo_financiero": "107 - Administración de Parques Nacionales",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5760,7 +5786,7 @@
       "unidad_ejecutora": "92 - Departamento de Compras y Contrataciones- BN",
       "servicio_administrativo_financiero": "116 - Biblioteca Nacional",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5773,7 +5799,7 @@
       "unidad_ejecutora": "46/07 - 7° Santa Fe - DNV",
       "servicio_administrativo_financiero": "604 - Dirección Nacional de Vialidad",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5786,7 +5812,7 @@
       "unidad_ejecutora": "64/000 - Departamento de Compras y Contrataciones- SRT",
       "servicio_administrativo_financiero": "852 - Superintendencia de Riesgos del Trabajo",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5799,7 +5825,7 @@
       "unidad_ejecutora": "37/061 - Escuadrón 34 \"Bariloche\"",
       "servicio_administrativo_financiero": "375 - Gendarmeria Nacional",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5812,7 +5838,7 @@
       "unidad_ejecutora": "44/000 - Gerencia de Servicios Centrales - CNV",
       "servicio_administrativo_financiero": "602 - Comisión Nacional de Valores",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5825,7 +5851,7 @@
       "unidad_ejecutora": "46/14 - 14° San Luis - DNV",
       "servicio_administrativo_financiero": "604 - Dirección Nacional de Vialidad",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5838,7 +5864,7 @@
       "unidad_ejecutora": "30/00 - División Contrataciones - Policia Federal Argentina",
       "servicio_administrativo_financiero": "326 - Super Intendencia de la Administracion de la Policia Federal",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5851,7 +5877,7 @@
       "unidad_ejecutora": "52 - Coordinación de Compras y Contrataciones - SENASA",
       "servicio_administrativo_financiero": "623 - Servicio Nacional de Sanidad y Calidad Agroalimentaria",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5864,7 +5890,7 @@
       "unidad_ejecutora": "38/19 - División Contrataciones del Cuartel General del EMGA",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5877,7 +5903,7 @@
       "unidad_ejecutora": "84/12 - Dirección de Ingenieros e Infraestructura",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5890,20 +5916,7 @@
       "unidad_ejecutora": "84/26 - Hospital Militar Central 601",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
-      "detail_status": "NO_DIRECT_URL",
-      "detail_text": ""
-    },
-    {
-      "numero_proceso": "37/1-0096-LPU26",
-      "nombre_proceso": "SERVICIO INTEGRAL DE LIMPIEZA DE LA GUARNICIÓN CENTINELA",
-      "tipo_proceso": "Licitación Pública",
-      "fecha_apertura": "16/11/2026 10:00 Hrs.",
-      "estado": "Publicado",
-      "unidad_ejecutora": "37/001 - Unidad Tecnica Administrativa Contable \"DNG\"",
-      "servicio_administrativo_financiero": "375 - Gendarmeria Nacional",
-      "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5916,7 +5929,7 @@
       "unidad_ejecutora": "16/000 - Dirección General de Administración-ARN",
       "servicio_administrativo_financiero": "112 - Autoridad Regulatoria Nuclear",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5929,7 +5942,7 @@
       "unidad_ejecutora": "279/000 - Departamento de Compras - PSA",
       "servicio_administrativo_financiero": "382 - Policia de Seguridad Aeroportuaria",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5942,7 +5955,7 @@
       "unidad_ejecutora": "38/12 - Comando de la Flota de Mar",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5955,7 +5968,7 @@
       "unidad_ejecutora": "14 - Compras y Contrataciones - CNEA",
       "servicio_administrativo_financiero": "105 - Comisión Nacional de Energía Atómica",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5968,7 +5981,7 @@
       "unidad_ejecutora": "487 - División Compras y Suministros - Superintendencia de Bienestar de la Policia Federal Argentina",
       "servicio_administrativo_financiero": "403 - Superintendencia de Bienestar de la Policia Federal Argentina",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5981,7 +5994,7 @@
       "unidad_ejecutora": "37/083 - Secretaria General",
       "servicio_administrativo_financiero": "375 - Gendarmeria Nacional",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -5994,7 +6007,7 @@
       "unidad_ejecutora": "15 - Subgerencia de Compras y Contrataciones",
       "servicio_administrativo_financiero": "106 - Comisión Nacional de Actividades Espaciales",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6007,7 +6020,7 @@
       "unidad_ejecutora": "80/000 - Dirección General de Administración - MS",
       "servicio_administrativo_financiero": "310 - Ministerio de Salud",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6020,7 +6033,7 @@
       "unidad_ejecutora": "21/000 - Dirección General de Administración - DNM",
       "servicio_administrativo_financiero": "201 - Dirección Nacional de Migraciones",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6033,7 +6046,7 @@
       "unidad_ejecutora": "21/000 - Dirección General de Administración - DNM",
       "servicio_administrativo_financiero": "201 - Dirección Nacional de Migraciones",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6046,7 +6059,7 @@
       "unidad_ejecutora": "84/26 - Hospital Militar Central 601",
       "servicio_administrativo_financiero": "374 - Estado Mayor General del Ejercito",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6059,7 +6072,7 @@
       "unidad_ejecutora": "39 - Dirección General de Administración- PNA",
       "servicio_administrativo_financiero": "380 - Prefectura Naval Argentina",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6072,7 +6085,7 @@
       "unidad_ejecutora": "38/01 - ARSENAL NAVAL PUERTO BELGRANO",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6085,7 +6098,7 @@
       "unidad_ejecutora": "15 - Subgerencia de Compras y Contrataciones",
       "servicio_administrativo_financiero": "106 - Comisión Nacional de Actividades Espaciales",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6098,7 +6111,7 @@
       "unidad_ejecutora": "80/000 - Dirección General de Administración - MS",
       "servicio_administrativo_financiero": "310 - Ministerio de Salud",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6111,7 +6124,7 @@
       "unidad_ejecutora": "66/00 - Dirección de Compras, Suministros, Logística y Arquitectura - ANMAT",
       "servicio_administrativo_financiero": "904 - Administración Nacional de Medicamentos, Alimentos y Tecnología Médica - ANMAT",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6124,7 +6137,7 @@
       "unidad_ejecutora": "21/000 - Dirección General de Administración - DNM",
       "servicio_administrativo_financiero": "201 - Dirección Nacional de Migraciones",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6137,7 +6150,20 @@
       "unidad_ejecutora": "23/000 - Dirección General de Administración - SG",
       "servicio_administrativo_financiero": "301 - Secretaria General de la Presidencia de la Nación",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "detail_status": "NO_DIRECT_URL",
+      "detail_text": ""
+    },
+    {
+      "numero_proceso": "80-0071-LPU26",
+      "nombre_proceso": "Provisión de medicamento Surfactante Pulmonar 4 ml y 8 ml",
+      "tipo_proceso": "Licitación Pública",
+      "fecha_apertura": "17/11/2026 14:00 Hrs.",
+      "estado": "Publicado",
+      "unidad_ejecutora": "80/000 - Dirección General de Administración - MS",
+      "servicio_administrativo_financiero": "310 - Ministerio de Salud",
+      "process_url": "",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6150,7 +6176,7 @@
       "unidad_ejecutora": "52 - Coordinación de Compras y Contrataciones - SENASA",
       "servicio_administrativo_financiero": "623 - Servicio Nacional de Sanidad y Calidad Agroalimentaria",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6163,7 +6189,7 @@
       "unidad_ejecutora": "38/19 - División Contrataciones del Cuartel General del EMGA",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6176,7 +6202,7 @@
       "unidad_ejecutora": "38/19 - División Contrataciones del Cuartel General del EMGA",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6189,7 +6215,7 @@
       "unidad_ejecutora": "39 - Dirección General de Administración- PNA",
       "servicio_administrativo_financiero": "380 - Prefectura Naval Argentina",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6202,7 +6228,20 @@
       "unidad_ejecutora": "38/01 - ARSENAL NAVAL PUERTO BELGRANO",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "detail_status": "NO_DIRECT_URL",
+      "detail_text": ""
+    },
+    {
+      "numero_proceso": "37/1-0096-LPU26",
+      "nombre_proceso": "SERVICIO INTEGRAL DE LIMPIEZA DE LA GUARNICIÓN CENTINELA",
+      "tipo_proceso": "Licitación Pública",
+      "fecha_apertura": "18/11/2026 10:00 Hrs.",
+      "estado": "Publicado",
+      "unidad_ejecutora": "37/001 - Unidad Tecnica Administrativa Contable \"DNG\"",
+      "servicio_administrativo_financiero": "375 - Gendarmeria Nacional",
+      "process_url": "",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6215,7 +6254,7 @@
       "unidad_ejecutora": "16/000 - Dirección General de Administración-ARN",
       "servicio_administrativo_financiero": "112 - Autoridad Regulatoria Nuclear",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6228,7 +6267,7 @@
       "unidad_ejecutora": "38/19 - División Contrataciones del Cuartel General del EMGA",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6241,7 +6280,7 @@
       "unidad_ejecutora": "38/19 - División Contrataciones del Cuartel General del EMGA",
       "servicio_administrativo_financiero": "379 - Estado Mayor General de la Armada",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6254,7 +6293,7 @@
       "unidad_ejecutora": "487 - División Compras y Suministros - Superintendencia de Bienestar de la Policia Federal Argentina",
       "servicio_administrativo_financiero": "403 - Superintendencia de Bienestar de la Policia Federal Argentina",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6267,7 +6306,7 @@
       "unidad_ejecutora": "37/106 - Direccion General De Inteligencia Criminal E Investigaciones",
       "servicio_administrativo_financiero": "375 - Gendarmeria Nacional",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6280,7 +6319,7 @@
       "unidad_ejecutora": "46/000 - Coordinación de Licitaciones y Contrataciones - DNV",
       "servicio_administrativo_financiero": "604 - Dirección Nacional de Vialidad",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6293,7 +6332,7 @@
       "unidad_ejecutora": "16/000 - Dirección General de Administración-ARN",
       "servicio_administrativo_financiero": "112 - Autoridad Regulatoria Nuclear",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6306,7 +6345,7 @@
       "unidad_ejecutora": "63/000 - Dirección de Contrataciones - ANSES II",
       "servicio_administrativo_financiero": "850 - Administración Nacional de la Seguridad Social",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6319,7 +6358,7 @@
       "unidad_ejecutora": "347/000 - Dirección General de Administración - MS",
       "servicio_administrativo_financiero": "343 - Ministerio de Seguridad",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6332,7 +6371,7 @@
       "unidad_ejecutora": "392/000 - Dirección General de Administración - AABE",
       "servicio_administrativo_financiero": "205 - Agencia de Administración de Bienes del Estado",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6345,7 +6384,7 @@
       "unidad_ejecutora": "392/000 - Dirección General de Administración - AABE",
       "servicio_administrativo_financiero": "205 - Agencia de Administración de Bienes del Estado",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6358,7 +6397,7 @@
       "unidad_ejecutora": "30/00 - División Contrataciones - Policia Federal Argentina",
       "servicio_administrativo_financiero": "326 - Super Intendencia de la Administracion de la Policia Federal",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6371,7 +6410,7 @@
       "unidad_ejecutora": "83/000 - Dirección General de Administración Financiera - MC",
       "servicio_administrativo_financiero": "337 - Secretaría de Cultura",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6384,7 +6423,7 @@
       "unidad_ejecutora": "31/000 - Direccion de Contrataciones - SPF",
       "servicio_administrativo_financiero": "331 - Servicio Penitenciario Federal",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl02$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6397,7 +6436,7 @@
       "unidad_ejecutora": "31/000 - Direccion de Contrataciones - SPF",
       "servicio_administrativo_financiero": "331 - Servicio Penitenciario Federal",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl03$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6410,7 +6449,7 @@
       "unidad_ejecutora": "31/000 - Direccion de Contrataciones - SPF",
       "servicio_administrativo_financiero": "331 - Servicio Penitenciario Federal",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl04$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6423,7 +6462,7 @@
       "unidad_ejecutora": "39 - Dirección General de Administración- PNA",
       "servicio_administrativo_financiero": "380 - Prefectura Naval Argentina",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl05$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6436,7 +6475,7 @@
       "unidad_ejecutora": "31/000 - Direccion de Contrataciones - SPF",
       "servicio_administrativo_financiero": "331 - Servicio Penitenciario Federal",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl06$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl09$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6449,7 +6488,7 @@
       "unidad_ejecutora": "392/000 - Dirección General de Administración - AABE",
       "servicio_administrativo_financiero": "205 - Agencia de Administración de Bienes del Estado",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl10$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     },
@@ -6462,7 +6501,7 @@
       "unidad_ejecutora": "392/000 - Dirección General de Administración - AABE",
       "servicio_administrativo_financiero": "205 - Agencia de Administración de Bienes del Estado",
       "process_url": "",
-      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl11$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     }
