@@ -1,9 +1,9 @@
 {
-  "generated_at": "2026-11-07T16:29:52.554847+00:00",
+  "generated_at": "2026-11-08T15:36:21.340559+00:00",
   "source": "COMPR.AR",
   "source_url": "https://comprar.gob.ar/Compras.aspx?qs=W1HXHGHtH10=",
   "universe": "Licitaciones de apertura próxima",
-  "total_records": 476,
+  "total_records": 477,
   "data": [
     {
       "numero_proceso": "46-0031-LPU26",
@@ -6190,6 +6190,19 @@
       "servicio_administrativo_financiero": "205 - Agencia de Administración de Bienes del Estado",
       "process_url": "",
       "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl07$lnkNumeroProceso','')",
+      "detail_status": "NO_DIRECT_URL",
+      "detail_text": ""
+    },
+    {
+      "numero_proceso": "289-0001-LPR26",
+      "nombre_proceso": "ADQUISICIÓN DE SENSORES UV ERITÉMICOS Y DATALOGGERS",
+      "tipo_proceso": "Licitación Privada",
+      "fecha_apertura": "23/12/2026 11:00 Hrs.",
+      "estado": "Publicado",
+      "unidad_ejecutora": "289 - Dirección General de Administración-SMN",
+      "servicio_administrativo_financiero": "452 - Servicio Metereológico Nacional",
+      "process_url": "",
+      "process_href": "javascript:__doPostBack('ctl00$CPH1$GridListaPliegosAperturaProxima$ctl08$lnkNumeroProceso','')",
       "detail_status": "NO_DIRECT_URL",
       "detail_text": ""
     }
